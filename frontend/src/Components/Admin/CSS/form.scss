@@ -1,0 +1,36 @@
+.form-container{
+    width: 50%;
+    margin: 0 auto;
+    .form-row{
+        display: flex;
+        .form-elmnt{
+            flex: 1;
+
+            input, select, textarea {
+                padding: 15px;
+                margin: 5px 0 22px 0;
+                display: inline-block;
+                border: none;
+                width: 100%;
+                background: #f1f1f1;
+                max-width: 90%;
+            }
+            select{
+                max-width: 100%;
+            }
+        }
+
+        button{
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.9;
+            &:hover{
+                background-color: #059862!important;
+                color: #ffffff;
+            }
+        }
+    }
+}

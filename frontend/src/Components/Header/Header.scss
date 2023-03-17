@@ -1,0 +1,14 @@
+.mainnav{
+    display: flex;
+    padding: 15px;
+    .nav-section{
+        flex: 1;
+    }
+    .navlinks{
+        display: flex;
+        a{
+            text-decoration: none;
+            padding-right: 15px;
+        }
+    }
+}
