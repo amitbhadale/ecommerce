@@ -21,6 +21,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Kindly enter price value"],
   },
+  rating: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Product", productSchema);

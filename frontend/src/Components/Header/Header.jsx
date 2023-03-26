@@ -7,16 +7,22 @@ const Header = () => {
     <>
       <div className="mainnav">
         <div className="nav-section">
-          <Link className="navlink" to="/">
-            Logo
+          <Link className="navlink logo" to="/">
+            AMIT BHADALE
           </Link>
         </div>
         <div className="nav-section navlinks">
           <Link className="navlink" to="/">
             Home
           </Link>
-          <Link className="navlink" to="/admin">
+          <Link className="navlink" to="/products">
+            Products
+          </Link>
+          <Link className="navlink" to="/admin" target="_blank">
             Admin
+          </Link>
+          <Link className="navlink" to="/cart">
+            Cart
           </Link>
         </div>
       </div>

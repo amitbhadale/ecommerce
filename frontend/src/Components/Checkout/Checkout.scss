@@ -1,0 +1,35 @@
+.co-box{
+    display: flex;
+    padding: 3% 6%;
+    .co-left{
+        flex: 2 1;
+        .address-box{
+            .rw{
+
+            }
+            .address-list{
+                .address-card{
+                    display: flex;
+                    width: 100%;
+                    border: 1px solid rgba(0, 0, 0, 0.1490196078);
+                    border-bottom: none;
+                    flex-direction: column;
+                    padding: 15px;
+                    .mobile{
+                        .address-cta-box{
+                            button{
+
+                            }
+                        }
+                    }
+                }
+                &:last-child{
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1490196078);
+                }
+            }
+        }
+    }
+    .co-right{
+        flex: 1 1;
+    }
+}

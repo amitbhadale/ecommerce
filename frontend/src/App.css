@@ -1,0 +1,10 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+button{
+    background: rgba(0, 0, 0, 0.1019607843);
+    border: 1px solid rgba(0, 0, 0, 0.1098039216);
+    cursor: pointer;
+}
