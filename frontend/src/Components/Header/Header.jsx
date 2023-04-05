@@ -1,8 +1,15 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../../Actions/UserActions";
 import "./Header.scss";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { isAuth } = useSelector((state) => state.user);
+  const logoutHandler = async () => {
+    await dispatch(logout());
+  };
   return (
     <>
       <div className="mainnav">
@@ -24,6 +31,15 @@ const Header = () => {
           <Link className="navlink" to="/cart">
             Cart
           </Link>
+          {isAuth ? (
+            <Link className="navlink" onClick={logoutHandler}>
+              Log Out
+            </Link>
+          ) : (
+            <Link className="navlink" to="/login">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </>

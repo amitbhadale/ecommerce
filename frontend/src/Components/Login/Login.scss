@@ -1,0 +1,67 @@
+.login-box{
+    width: 70%;
+    margin: 0 auto;
+    padding: 3% 5%;
+    margin-top: 3%;
+    .tab-head{
+        display: flex;
+        justify-content: space-around;
+        width: 50%;
+        margin: auto;
+        margin-bottom: 22px;
+        cursor: pointer;
+        p{
+            font-size: 16px;
+            color: #aaa;
+            transition: all 0.1s ease;
+            &.active{
+                color: #000;
+                font-weight: bold;
+            }
+        }
+    }
+    .form-box{
+        .login-tab{
+            display: none;
+            transition: all 0.1s ease;
+            &.show{
+                display: block;
+                transition: all 0.1s ease;
+            }
+        }
+        .reg-tab{
+            display: none;
+            transition: all 0.1s ease;
+            &.show{
+                display: block;
+                transition: all 0.1s ease;
+            }
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: 1% auto;
+            
+            input{
+                padding: 15px;
+                margin: 5px 0 22px 0;
+                display: inline-block;
+                border: none;
+                width: 100%;
+                background: #f1f1f1;
+            }
+            button{
+                background-color: #673ab7;
+                border: none;
+                color: white;
+                padding: 13px;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        }
+        
+    }
+}

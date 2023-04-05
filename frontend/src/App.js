@@ -10,10 +10,15 @@ import { Products as ProductsList } from "./Components/Products/Products";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import Cart from "./Components/Cart/Cart";
 import { addToCartAction } from "./Actions/CartActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Checkout from "./Components/Checkout/Checkout";
+import Users from "./Components/Admin/Users/Users";
+import Login from "./Components/Login/Login";
+import { loadUser } from "./Actions/UserActions";
+import { createBrowserHistory } from "history";
 function App() {
   const dispatch = useDispatch();
+  const customHistory = createBrowserHistory();
   useEffect(() => {
     if (!localStorage.cart) {
       const cart = [];
@@ -23,8 +28,20 @@ function App() {
       dispatch(addToCartAction(JSON.parse(localStorage.cart)));
     }
   }, []);
+
+  useEffect(() => {
+    //load logedin user details
+    dispatch(loadUser());
+    console.log("history", customHistory);
+  }, []);
+
+  const { isAuth } = useSelector((state) => state.user);
+  useEffect(() => {
+    console.log("isAuth", isAuth);
+  }, [isAuth]);
+
   return (
-    <Router>
+    <Router history={customHistory}>
       <div className="App">
         <Header />
         <Routes>
@@ -32,11 +49,21 @@ function App() {
           <Route path="/products" element={<ProductsList />}></Route>
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout/address" element={<Checkout />} />
+          {/* <Route
+            path={isAuth ? "/login" : "/"}
+            element={isAuth ? <Home /> : <Login />}
+          /> */}
+          <Route path="/login" element={isAuth ? <Home /> : <Login />} />
+          <Route path="/register" element={<Login />} />
+          <Route
+            path="/checkout/address"
+            element={isAuth ? <Checkout /> : <Login />}
+          />
           <Route path="/admin" element={<Dashboard />}>
             <Route path="admin" element={<Dashboard />} />
             <Route path="products" element={<Products />} />
             <Route path="category" element={<Category />} />
+            <Route path="users" element={<Users />} />
           </Route>
         </Routes>
       </div>

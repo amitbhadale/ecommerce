@@ -5,6 +5,7 @@ import CartItem from "../CartItem/CartItem";
 import "./Cart.scss";
 
 const Cart = () => {
+  const { isAuth } = useSelector((state) => state.user);
   const [cartItems, setCartItems] = useState([]);
   const [totalVal, setTotalVal] = useState(0);
   //TODO - if user is logged in then fetch cart details from DB else from localstorage
@@ -66,7 +67,9 @@ const Cart = () => {
             </div>
             <div className="rw">
               <div className="chckout-cta">
-                <Link to="/checkout/address">CHECKOUT</Link>
+                <Link to={isAuth ? "/checkout/address" : "/login"}>
+                  {isAuth ? "CHECKOUT" : "LOGIN TO CHECKOUT"}
+                </Link>
               </div>
             </div>
           </div>
