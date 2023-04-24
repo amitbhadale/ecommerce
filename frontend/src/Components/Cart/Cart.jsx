@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { totalValue } from "../../Actions/CartActions";
 import CartItem from "../CartItem/CartItem";
 import "./Cart.scss";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.user);
   const [cartItems, setCartItems] = useState([]);
   const [totalVal, setTotalVal] = useState(0);
-  //TODO - if user is logged in then fetch cart details from DB else from localstorage
+
   const { cart } = useSelector((state) => state.cart);
   useEffect(() => {
     if (cart) {
@@ -18,7 +20,7 @@ const Cart = () => {
 
   useEffect(() => {
     //calculate total value calculations
-    if (cart) {
+    if (cart && cart.length > 0) {
       const a = cart.map((i) => {
         return {
           ...i,
@@ -32,6 +34,7 @@ const Cart = () => {
         });
 
       setTotalVal(sum);
+      dispatch(totalValue(sum));
     }
   }, [cart, cartItems]);
 
@@ -43,7 +46,7 @@ const Cart = () => {
             return <CartItem key={i} item={item} />;
           })
         ) : (
-          <p>No cart items</p>
+          <p>No items in Cart</p>
         )}
       </div>
       <div className="crt-right">
@@ -52,23 +55,35 @@ const Cart = () => {
           <div className="price-breakup-box">
             <div className="rw">
               <p>Total MRP</p>
-              <p>Rs. {totalVal}</p>
+              <p>Rs. {totalVal.toLocaleString("en-IN")}</p>
             </div>
             <div className="rw">
-              <p>Std. Discount</p>
-              <p>-{totalVal / 10}</p>
+              <p>Std. 10% Discount</p>
+              <p>-{(totalVal / 10).toLocaleString("en-IN")}</p>
             </div>
           </div>
           <hr />
           <div className="total-box">
             <div className="rw">
               <h3>Total Amount</h3>
-              <h3>Rs. {totalVal - totalVal / 10}</h3>
+              <h3>Rs. {(totalVal - totalVal / 10).toLocaleString("en-IN")}</h3>
             </div>
             <div className="rw">
               <div className="chckout-cta">
-                <Link to={isAuth ? "/checkout/address" : "/login"}>
-                  {isAuth ? "CHECKOUT" : "LOGIN TO CHECKOUT"}
+                <Link
+                  to={
+                    cartItems.length === 0
+                      ? "/products"
+                      : isAuth
+                      ? "/checkout/address"
+                      : "/login"
+                  }
+                >
+                  {cartItems.length === 0
+                    ? "VIEW PRODUCTS"
+                    : isAuth
+                    ? "CHECKOUT"
+                    : "LOGIN TO CHECKOUT"}
                 </Link>
               </div>
             </div>

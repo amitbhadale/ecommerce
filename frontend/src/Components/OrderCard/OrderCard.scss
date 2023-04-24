@@ -1,0 +1,39 @@
+.ordr-item-box{
+    border: 1px solid;
+    margin-bottom: 15px;
+    .order-head{
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid;
+        .date{
+            p{
+
+            }
+        }
+        .status{
+            p{
+
+            }
+        }
+        .price{
+            p{
+
+            }
+        }
+    }
+    .ordr-body{
+        .items-list{
+            border-bottom: 1px solid;
+            div{
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+        .address{
+
+        }
+    }
+    .ordr-foot{
+
+    }
+}

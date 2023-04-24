@@ -31,18 +31,28 @@ const userSchema = new mongoose.Schema({
       ref: "Order",
     },
   ],
+  cart: [
+    {
+      id: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      name: { type: String, required: true },
+      price: { type: String, required: true },
+      quantity: { type: Number, required: true },
+    },
+  ],
   address: [
     {
       addressLine: { type: String, required: true },
+      pin: { type: Number, required: true },
       city: { type: String, required: true },
       state: { type: String, required: true },
-      country: { type: String, Default: "India" },
-      isDefault: { type: Boolean, Default: false },
+      country: { type: String, default: "India" },
+      isDefault: { type: Boolean, default: false },
+      isSelected: { type: Boolean, default: false },
     },
   ],
   isAdmin: {
     type: Boolean,
-    Default: false,
+    default: false,
   },
 });
 userSchema.pre("save", async function (next) {

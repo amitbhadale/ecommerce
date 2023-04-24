@@ -4,7 +4,15 @@ import { clearMessage } from "../../../Actions/CategoryActions";
 import "./Alert.scss";
 const Alert = () => {
   const dispatch = useDispatch();
-  const { message } = useSelector((state) => state.product);
+  const { message: productMessage } = useSelector((state) => state.product);
+  const { message: orderMessage } = useSelector((state) => state.order);
+
+  const [message, setMessage] = useState(productMessage || orderMessage);
+
+  useEffect(() => {
+    setMessage(productMessage || orderMessage);
+  }, [productMessage, orderMessage]);
+
   useEffect(() => {
     setTimeout(() => {
       dispatch(clearMessage());

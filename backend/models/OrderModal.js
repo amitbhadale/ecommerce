@@ -7,26 +7,30 @@ const orderSchema = new mongoose.Schema({
     required: [true, "user id is required"],
   },
   shippingDetails: {
-    addressLine: { type, String, required: true },
-    city: { type, String, required: true },
-    state: { type, String, required: true },
-    country: { type: String, Default: "India" },
+    addressLine: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    country: { type: String, default: "India" },
   },
   items: [
     {
       name: { type: String, required: true },
       quantity: { type: Number, required: true },
       price: { type: Number, required: true },
-      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
     },
   ],
   totalValue: { type: Number, required: true },
   paymentInfo: {
     status: { type: String, required: true },
-    paidAt: { type: Date, required: true },
+    paidAt: { type: Date },
   },
-  status: { type: String, Default: "Processing" },
-  createdAt: { type: Date, Default: Date.now },
+  status: { type: String, default: "Processing" },
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Order", orderSchema);

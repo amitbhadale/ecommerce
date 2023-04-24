@@ -1,0 +1,11 @@
+.acc-box{
+    .profile-box{
+        form{
+            display: flex;
+            flex-direction: column;
+            input{
+                max-width: 90%;
+            }
+        }
+    }
+}

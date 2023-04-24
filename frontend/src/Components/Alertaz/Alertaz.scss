@@ -1,0 +1,33 @@
+.alertaz-box{
+    position: fixed;
+    // display: none;
+    // height: 100%;
+    // width: 100%;
+    // top: 0;
+    z-index: 2;
+    left: 10px;
+    right: 0;
+    bottom: 0;
+    .alertaz-col{
+        position: absolute;
+        bottom: 10px;
+        width: 50%;
+        .alerta{
+            background: red;
+            padding: 2% 4%;
+            margin-bottom: 10px;
+            color: #fff;
+            border-radius: 4px;
+            &.success{
+                background: #419544;
+            }
+            &.err{
+                background: #cb392e;
+            }
+            &.warn{
+                background: #cbb815;
+
+            }
+        }
+    }
+}

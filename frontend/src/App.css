@@ -7,4 +7,16 @@ button{
     background: rgba(0, 0, 0, 0.1019607843);
     border: 1px solid rgba(0, 0, 0, 0.1098039216);
     cursor: pointer;
+    padding: 13px;
+}
+input[type="text"], input[type="email"], input[type="number"], input[type="password"]{
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    width: 100%;
+    background: #f1f1f1;
+}
+.app{
+    position: relative;
 }

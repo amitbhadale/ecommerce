@@ -12,10 +12,12 @@ app.use(cookieParser());
 const category = require("./routes/categoryRoutes");
 const product = require("./routes/productRoutes");
 const user = require("./routes/userRoutes");
+const order = require("./routes/orderRoutes");
 
 //using routes
 app.use("/api/v1", category);
 app.use("/api/v1", product);
 app.use("/api/v1", user);
+app.use("/api/v1", order);
 
 module.exports = app;

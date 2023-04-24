@@ -5,7 +5,10 @@
         flex: 2 1;
         .address-box{
             .rw{
-
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
             }
             .address-list{
                 .address-card{
@@ -15,12 +18,36 @@
                     border-bottom: none;
                     flex-direction: column;
                     padding: 15px;
+                    position: relative;
+                    transition: all 0.2s ease;
+                    input{
+                        position: absolute;
+                        left: -50%;
+                        margin: 5px 0 22px 0;
+                        width: 100%;
+                    }
+                    h4{
+                        margin-bottom: 10px;
+                        text-transform: capitalize;
+                    }
                     .mobile{
-                        .address-cta-box{
-                            button{
-
-                            }
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }    
+                    .address-cta-box{
+                        button{
+                            background-color: #673ab7;
+                            border: none;
+                            color: white;
+                            padding: 10px;
+                            text-align: center;
+                            text-decoration: none;
+                            border-radius: 4px;  
+                            margin-right: 10px;
                         }
+                    }
+                    &.selected{
+                        background: #ccc
                     }
                 }
                 &:last-child{
@@ -30,6 +57,48 @@
         }
     }
     .co-right{
-        flex: 1 1;
+        flex: 1;
+        border: 1px solid rgba(0, 0, 0, 0.1490196078);
+        padding: 15px;
+        border-left: 0;
+        .calculations{
+            hr{
+                margin: 1em 0;
+                border: 1px solid rgba(0, 0, 0, 0.1490196078);
+                border-top: none;
+            }
+            .price-breakup-box{
+                .rw{
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 5px 0px;
+                }
+            }
+            .total-box{
+                .rw{
+                    display: flex;
+                    justify-content: space-between;
+                    .chckout-cta{
+                        width: 100%;
+                        margin-top: 2em;
+                        a, button{
+                            width: 100%;
+                            padding: 1em;
+                            color: #fff;
+                            background: #673ab7b8;
+                            border-radius: 3px;
+                            background: rgba(103, 58, 183);
+                            letter-spacing: 2px;
+                            box-sizing: border-box;
+                            display: block;
+                            text-align: center;
+                            text-decoration: none;
+                            font-size: 13px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

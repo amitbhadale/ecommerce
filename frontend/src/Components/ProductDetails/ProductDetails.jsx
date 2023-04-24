@@ -3,10 +3,11 @@ import "./ProductDetails.scss";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../Actions/ProductActions";
-import { addToCartAction } from "../../Actions/CartActions";
+import { addToCartAction, saveCartToDB } from "../../Actions/CartActions";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
+  const { isAuth, user } = useSelector((state) => state.user);
   let { id } = useParams();
   const [quantity, setQuantity] = useState(1);
 
@@ -26,7 +27,7 @@ const ProductDetails = () => {
 
   let { product } = useSelector((state) => state.product);
 
-  const addtoCart = () => {
+  const addtoCart = async () => {
     //TODO: if user is logged in then call addtocart api else save on localstorage
 
     let cartItems = JSON.parse(localStorage.cart);
@@ -49,8 +50,12 @@ const ProductDetails = () => {
     }
     dispatch(addToCartAction(cartItems));
     localStorage.setItem("cart", JSON.stringify(cartItems));
-  };
 
+    if (isAuth) {
+      //save cart to DB
+      await dispatch(saveCartToDB(user._id, cartItems));
+    }
+  };
   return (
     <>
       <div>
@@ -70,9 +75,23 @@ const ProductDetails = () => {
                 <p>(inclusive of all taxes)</p>
               </div>
               <div className="pd-quantity">
-                <button onClick={() => setQuantity(quantity + 1)}>+</button>
+                <button
+                  onClick={() =>
+                    quantity !== product.quantity
+                      ? setQuantity(quantity + 1)
+                      : false
+                  }
+                >
+                  +
+                </button>
                 <span> {quantity} </span>
-                <button onClick={() => setQuantity(quantity - 1)}>-</button>
+                <button
+                  onClick={() =>
+                    quantity !== 1 ? setQuantity(quantity - 1) : false
+                  }
+                >
+                  -
+                </button>
               </div>
               <div className="pd-cta-box">
                 <button className="pd-cta" onClick={() => addtoCart()}>
@@ -81,6 +100,7 @@ const ProductDetails = () => {
                 <button className="pd-cta">Move to Favourate</button>
               </div>
               <div className="pd-desc">{product.description}</div>
+              <div className="avlbl">Available: {product.quantity}</div>
             </div>
           </div>
         ) : null}

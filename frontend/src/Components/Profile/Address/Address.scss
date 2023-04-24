@@ -1,0 +1,37 @@
+.adrs-box{
+    .headsec{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .adrs-list{
+        .address-card{
+            border: 1px solid #bbb;
+            margin-bottom: 15px;
+            padding: 13px;
+            background: #eee;
+            h4{
+                margin-bottom: 10px;
+                text-transform: capitalize;
+            }
+            .mobile{
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .address-cta-box{
+                button{
+                    background-color: #673ab7;
+                    border: none;
+                    color: white;
+                    padding: 10px;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 4px;  
+                    margin-right: 10px;              
+                }
+            }
+        }
+    }
+
+}

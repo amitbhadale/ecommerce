@@ -54,7 +54,46 @@ export const userReducer = createReducer(intialState, {
     state.error = action.payload;
   },
 
+  addAddressRequest: (state) => {
+    state.loading = true;
+  },
+  addAddressSuccess: (state, action) => {
+    state.loading = false;
+    state.message = action.payload;
+  },
+  addAddressFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+
+  deleteAddressRequest: (state) => {
+    state.loading = true;
+  },
+  deleteAddressSuccess: (state, action) => {
+    state.loading = false;
+    state.message = action.payload;
+  },
+  deleteAddressFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+
+  updateDBCartRequest: (state) => {
+    state.loading = true;
+  },
+  updateDBCartSuccess: (state, action) => {
+    state.loading = false;
+    state.user = action.payload;
+  },
+  updateDBCartFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+
   clearError: (state) => {
     state.error = null;
+  },
+  clearMessage: (state) => {
+    state.message = null;
   },
 });

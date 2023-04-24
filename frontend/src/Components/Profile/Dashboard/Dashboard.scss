@@ -1,0 +1,27 @@
+.prd-dash-box{
+    width: 70%;
+    margin: 3% auto;
+    display: flex;
+    .left{
+        flex: 1;
+        .acc-tabs{
+            display: flex;
+            flex-direction: column;
+            a{
+                text-decoration: none;
+                padding: 9px 5px;
+                border: 1px solid;
+                border-bottom: none;
+                background: #ccc;
+                color: #000;
+                &:last-child{
+                    border-bottom: 1px solid;
+                }
+            }
+        }
+    }
+    .right{
+        flex: 4;
+        padding-left: 1%;
+    }
+}

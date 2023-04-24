@@ -3,7 +3,10 @@ const intialState = {};
 
 export const cartReducer = createReducer(intialState, {
   addToCart: (state, action) => {
-    // console.log("payload", action);
     state.cart = action.payload;
+    state.message = "Item added to cart successfully";
+  },
+  updateTotalVal: (state, action) => {
+    state.totalValue = action.payload;
   },
 });

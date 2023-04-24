@@ -1,4 +1,5 @@
 import axios from "axios";
+import { closeAlert } from "../utils/common";
 
 export const register = (obj) => async (dispatch) => {
   try {
@@ -49,5 +50,33 @@ export const logout = (obj) => async (dispatch) => {
     });
   } catch (e) {
     dispatch({ type: "logOutFailure", payload: e.message });
+  }
+};
+
+export const addAddress = (id, obj) => async (dispatch) => {
+  try {
+    dispatch({ type: "addAddressRequest" });
+    const { data } = await axios.post(`/api/v1/add/address/${id}`, obj);
+    await dispatch({
+      type: "addAddressSuccess",
+      payload: data,
+    });
+    closeAlert(dispatch);
+  } catch (e) {
+    dispatch({ type: "addAddressFailure", payload: e.message });
+  }
+};
+
+export const deleteAddress = (id, index) => async (dispatch) => {
+  try {
+    dispatch({ type: "deleteAddressRequest" });
+    const { data } = await axios.put(`/api/v1/remove/address/${id}/${index}`);
+    await dispatch({
+      type: "deleteAddressSuccess",
+      payload: data,
+    });
+    closeAlert(dispatch);
+  } catch (e) {
+    dispatch({ type: "deleteAddressFailure", payload: e.message });
   }
 };

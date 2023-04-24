@@ -15,7 +15,7 @@ const Header = () => {
       <div className="mainnav">
         <div className="nav-section">
           <Link className="navlink logo" to="/">
-            AMIT BHADALE
+            LOGO
           </Link>
         </div>
         <div className="nav-section navlinks">
@@ -31,10 +31,19 @@ const Header = () => {
           <Link className="navlink" to="/cart">
             Cart
           </Link>
+          <Link className="navlink" to="/my/profile">
+            Profile
+          </Link>
           {isAuth ? (
-            <Link className="navlink" onClick={logoutHandler}>
-              Log Out
-            </Link>
+            <>
+              <Link className="navlink" to="/orders">
+                Orders
+              </Link>
+
+              <Link className="navlink" onClick={logoutHandler}>
+                Log Out
+              </Link>
+            </>
           ) : (
             <Link className="navlink" to="/login">
               Login

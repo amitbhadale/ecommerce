@@ -97,3 +97,63 @@ exports.getLoggedUser = async (req, res) => {
     });
   }
 };
+
+exports.addAddress = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user)
+      return res
+        .status(400)
+        .json({ success: false, message: "User does not found" });
+
+    const address = req.body;
+    user.address.push(address);
+    await user.save();
+
+    res
+      .status(200)
+      .json({ success: true, message: "Address added successfully" });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      messsage: e.message,
+    });
+  }
+};
+
+exports.deleteAddress = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user)
+      return res
+        .status(400)
+        .json({ success: false, message: "User does not found" });
+
+    const index = req.params.index;
+    user.address.splice(index, 1);
+    await user.save();
+    res
+      .status(200)
+      .json({ success: true, message: "Address deleted successfully" });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      messsage: e.message,
+    });
+  }
+};
+
+exports.updateCart = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.cart = req.body;
+    await user.save();
+
+    res.status(200).json({ success: true, user });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      messsage: e.message,
+    });
+  }
+};
