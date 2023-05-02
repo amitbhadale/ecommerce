@@ -20,7 +20,7 @@ import Checkout from "./Components/Checkout/Checkout";
 import Users from "./Components/Admin/Users/Users";
 import Login from "./Components/Login/Login";
 import { loadUser } from "./Actions/UserActions";
-import { createBrowserHistory } from "history";
+// import { createBrowserHistory } from "history";
 import Overview from "./Components/Profile/Overview/Overview";
 import { Dashboard as ProfileDashboard } from "./Components/Profile/Dashboard/Dashboard";
 import Address from "./Components/Profile/Address/Address";
@@ -34,7 +34,7 @@ function App() {
     user,
     message: userMessage,
   } = useSelector((state) => state.user);
-  const customHistory = createBrowserHistory();
+  // const customHistory = createBrowserHistory();
   const { cart: stateCart, message: cartMessage } = useSelector(
     (state) => state.cart
   );
@@ -120,10 +120,15 @@ function App() {
     // console.log("history", customHistory);
   }, []);
 
+  // useEffect(() => {
+  //   console.log("customHistory", customHistory);
+  // }, [customHistory]);
+
   // const { isAuth } = useSelector((state) => state.user);
 
   return (
-    <Router history={customHistory}>
+    // <Router history={customHistory}>
+    <Router>
       <div className="App">
         <Header />
         <Routes>

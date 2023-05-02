@@ -2,15 +2,23 @@
     display: flex;
     margin: auto;
     margin-top: 5%;
-    width: 80%;
+    width: 96%;
     .pd-left{
-        img{
+        flex-basis: 60%;
+        display: flex;
+        flex-wrap: wrap;
+        .img-box{
+            flex-basis: 50%;
 
-        }
+            img{
+                width: 99%;
+            }
+        }        
     }
     .pd-right{
         padding-left: 3%;
         width: 100%;
+        flex-basis: 40%;
         .pd-title{
             h3{
                 margin: 1em 0;

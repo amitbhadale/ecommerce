@@ -32,5 +32,17 @@
                 color: #ffffff;
             }
         }
+        .image-preview{
+            margin: 10px 0px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            img{
+                width: 100px;
+                height: 100px;
+                margin-right: 2px;
+                border-radius: 4px;
+            }
+        }
     }
 }

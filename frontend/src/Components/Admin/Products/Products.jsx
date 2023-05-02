@@ -33,6 +33,7 @@ const Products = () => {
   const [category, setCategory] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [editId, setEditId] = useState("");
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     if (product) {
@@ -46,6 +47,23 @@ const Products = () => {
     }
   }, [product]);
 
+  const updatePreview = (e) => {
+    const files = e.target.files;
+    const iarr = [];
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = (readerEvent) => {
+        iarr.push(readerEvent.target.result);
+        setImages(iarr);
+      };
+      reader.readAsDataURL(files[i]);
+    }
+  };
+
+  useEffect(() => {
+    console.log("images", images);
+  }, [images]);
+
   const submitFormHandler = async (e) => {
     e.preventDefault();
     const obj = {
@@ -54,6 +72,7 @@ const Products = () => {
       quantity,
       category,
       price,
+      images,
     };
     if (editId) {
       await dispatch(updateProduct(editId, obj));
@@ -219,6 +238,23 @@ const Products = () => {
                     value={desc}
                     onChange={(e) => setDesc(e.target.value)}
                   ></textarea>
+                </div>
+              </div>
+              <div className="form-row">
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => updatePreview(e)}
+                />
+              </div>
+              <div className="form-row">
+                <div className="image-preview">
+                  {images && images.length > 0
+                    ? images.map((image, i) => {
+                        return <img key={i} src={image} alt="" />;
+                      })
+                    : null}
                 </div>
               </div>
               <div className="form-row">

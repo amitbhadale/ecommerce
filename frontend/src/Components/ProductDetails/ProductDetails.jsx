@@ -60,49 +60,62 @@ const ProductDetails = () => {
     <>
       <div>
         {product ? (
-          <div className="prod-details-container">
-            <div className="pd-left">
-              <img src="https://dummyimage.com/550x650/444/fff" alt="" />
+          <>
+            <div className="prod-details-container">
+              <div className="pd-left">
+                {product.images && product.images.length > 0 ? (
+                  product.images.map((image) => {
+                    const { url, _id } = image;
+                    return (
+                      <div className="img-box">
+                        <img src={url} key={_id} alt="Product Image" />{" "}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <img src="https://dummyimage.com/550x650/444/fff" alt="" />
+                )}
+              </div>
+              <div className="pd-right">
+                <div className="pd-title">
+                  <h3>{product.name}</h3>
+                </div>
+                <hr />
+                <div className="pd-rating"></div>
+                <div className="pd-price">
+                  <h4>Rs. {product.price}/-</h4>
+                  <p>(inclusive of all taxes)</p>
+                </div>
+                <div className="pd-quantity">
+                  <button
+                    onClick={() =>
+                      quantity !== product.quantity
+                        ? setQuantity(quantity + 1)
+                        : false
+                    }
+                  >
+                    +
+                  </button>
+                  <span> {quantity} </span>
+                  <button
+                    onClick={() =>
+                      quantity !== 1 ? setQuantity(quantity - 1) : false
+                    }
+                  >
+                    -
+                  </button>
+                </div>
+                <div className="pd-cta-box">
+                  <button className="pd-cta" onClick={() => addtoCart()}>
+                    Add to Cart
+                  </button>
+                  <button className="pd-cta">Move to Favourate</button>
+                </div>
+                <div className="pd-desc">{product.description}</div>
+                <div className="avlbl">Available: {product.quantity}</div>
+              </div>
             </div>
-            <div className="pd-right">
-              <div className="pd-title">
-                <h3>{product.name}</h3>
-              </div>
-              <hr />
-              <div className="pd-rating"></div>
-              <div className="pd-price">
-                <h4>Rs. {product.price}/-</h4>
-                <p>(inclusive of all taxes)</p>
-              </div>
-              <div className="pd-quantity">
-                <button
-                  onClick={() =>
-                    quantity !== product.quantity
-                      ? setQuantity(quantity + 1)
-                      : false
-                  }
-                >
-                  +
-                </button>
-                <span> {quantity} </span>
-                <button
-                  onClick={() =>
-                    quantity !== 1 ? setQuantity(quantity - 1) : false
-                  }
-                >
-                  -
-                </button>
-              </div>
-              <div className="pd-cta-box">
-                <button className="pd-cta" onClick={() => addtoCart()}>
-                  Add to Cart
-                </button>
-                <button className="pd-cta">Move to Favourate</button>
-              </div>
-              <div className="pd-desc">{product.description}</div>
-              <div className="avlbl">Available: {product.quantity}</div>
-            </div>
-          </div>
+          </>
         ) : null}
       </div>
     </>

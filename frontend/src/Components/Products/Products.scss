@@ -1,6 +1,41 @@
 .prod-container{
-    .prod-list-section{
+    .sort-sec{
         display: flex;
-        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        padding: 20px 0px;
+        .search{
+            display: flex;
+            flex-basis: 50%;
+            align-items: baseline;
+            input{
+                margin: 0px;
+                margin-right: 10px;
+            }
+        }
+        .sort-by{
+            label{
+                margin-right: 10px;
+            }
+            select{
+                padding: 10px;
+            }
+        }
+        .ppp-dropdown{
+            label{
+                margin-right: 10px;
+            }
+            select{
+                padding: 10px;
+            }
+        }
     }
+    .prod-right{
+        .prod-list-section{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+    }
+    
 }

@@ -1,9 +1,27 @@
 const Product = require("../models/ProductModel");
+const cloudinary = require("cloudinary");
 
 exports.addProduct = async (req, res) => {
   try {
+    let images = req.body.images;
+    const imagesLinks = [];
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.uploader.upload(images[i], {
+        folder: "Products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+
+    const prodObj = {
+      ...req.body,
+      images: imagesLinks,
+    };
     const product = req.body;
-    const data = await Product.create(product);
+    const data = await Product.create(prodObj);
 
     res.status(200).json({
       success: true,
@@ -49,7 +67,25 @@ exports.getProductDetails = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body);
+    let images = req.body.images;
+    const imagesLinks = [];
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.uploader.upload(images[i], {
+        folder: "Products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+
+    const prodObj = {
+      ...req.body,
+      images: imagesLinks,
+    };
+
+    const product = await Product.findByIdAndUpdate(req.params.id, prodObj);
     res.status(200).json({
       success: true,
       message: "Prodcut updated Successfully",

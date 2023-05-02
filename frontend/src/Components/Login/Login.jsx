@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { login, register } from "../../Actions/UserActions";
 import "./Login.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
 
   const [firstName, setFirstName] = useState("");
@@ -31,6 +33,8 @@ const Login = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     await dispatch(login({ email, password: pass }));
+    navigate(-1);
+    // console.log("history", history);
   };
 
   const toggleTab = (val) => {
