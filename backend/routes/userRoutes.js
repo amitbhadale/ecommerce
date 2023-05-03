@@ -7,6 +7,7 @@ const {
   addAddress,
   updateCart,
   deleteAddress,
+  updateFav,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -18,6 +19,7 @@ router.route("/me").get(isAuth, getLoggedUser);
 router.route("/login").post(login);
 router.route("/logout").get(logout);
 router.route("/update/cart/:id").post(isAuth, updateCart);
+router.route("/update/favourite/:id").put(isAuth, updateFav);
 
 router.route("/add/address/:id").post(isAuth, addAddress);
 router.route("/remove/address/:id/:index").put(isAuth, deleteAddress);

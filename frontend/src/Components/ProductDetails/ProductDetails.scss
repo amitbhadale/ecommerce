@@ -1,8 +1,13 @@
+@import '../../media-queries.scss';
 .prod-details-container{
     display: flex;
     margin: auto;
     margin-top: 5%;
     width: 96%;
+    @include xs {
+        flex-direction: column;
+      }
+
     .pd-left{
         flex-basis: 60%;
         display: flex;
@@ -38,9 +43,16 @@
         }
         .pd-cta-box{
             margin: 15px auto;
+            @include xs {
+                display: flex;
+                flex-direction: column;
+            }
+            @include sm {
+                display: flex;
+            }
             .pd-cta{
                 background-color: #673ab7; 
-                border: none;
+                border: 1px solid #673ab7;;
                 color: white;
                 padding: 13px;
                 text-align: center;
@@ -49,13 +61,30 @@
                 cursor: pointer;
                 margin-right: 15px;
                 font-weight: bold;
+                white-space: nowrap;
+                
+                @include sm {
+                    flex: 1;
+                }
                 &:first-child{
-                    width: 40%;
+                    // width: 40%;
+                    @include xs {
+                        margin-bottom: 8px;
+                    }
                 }
                 &:nth-child(2){
                 background-color: #fff;
                 border: 1px solid #673ab7; 
                 color: #673ab7;
+                }
+                &:disabled{
+                    cursor: not-allowed;
+                }
+                &.fav{
+                    color: #fff;
+                    background-color: #F44336;
+                    border-color: #F44336;
+
                 }
             }
         }

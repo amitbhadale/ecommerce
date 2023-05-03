@@ -31,7 +31,10 @@ const ProductCard = ({ prod }) => {
             </div>
             <div className="rating"></div>
             <div className="actions">
-              <button className="prod-cta">Add to Cart</button>
+              {/* <button className="prod-cta">Add to Cart</button> */}
+              <Link to={`${_id}`} className="prod-cta">
+                View Product
+              </Link>
             </div>
           </div>
         </div>

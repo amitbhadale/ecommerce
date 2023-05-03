@@ -21,6 +21,7 @@ import Users from "./Components/Admin/Users/Users";
 import Login from "./Components/Login/Login";
 import { loadUser } from "./Actions/UserActions";
 // import { createBrowserHistory } from "history";
+import { closeAlert } from "./utils/common";
 import Overview from "./Components/Profile/Overview/Overview";
 import { Dashboard as ProfileDashboard } from "./Components/Profile/Dashboard/Dashboard";
 import Address from "./Components/Profile/Address/Address";
@@ -60,29 +61,32 @@ function App() {
           newArray.push(uniqueObject[i]);
         }
 
-        dispatch(addToCartAction(newArray));
-        console.log("called from here");
+        dispatch(addToCartAction(newArray, "initial"));
+        // console.log("called from here");
         dispatch(saveCartToDB(user._id, newArray));
       } else {
-        dispatch(addToCartAction(user.cart));
+        dispatch(addToCartAction(user.cart, "initial"));
       }
     } else {
       if (!localStorage.cart) {
         const cart = [];
         localStorage.setItem("cart", JSON.stringify(cart));
-        dispatch(addToCartAction(cart));
+        dispatch(addToCartAction(cart, "initial"));
       } else {
-        dispatch(addToCartAction(JSON.parse(localStorage.cart)));
+        dispatch(addToCartAction(JSON.parse(localStorage.cart), "initial"));
       }
     }
   }, [isAuth]);
 
   useEffect(() => {
     if (userMessage) {
+      console.log("first");
       const obj = { type: "success", message: userMessage.message };
       setAllMessages(allMessages.concat(obj));
-    } else if (cartMessage) {
-      const obj = { type: "success", message: cartMessage.message };
+    }
+    if (cartMessage) {
+      console.log("second");
+      const obj = { type: "success", message: cartMessage };
       setAllMessages(allMessages.concat(obj));
     } else {
       setAllMessages([]);
@@ -121,8 +125,20 @@ function App() {
   }, []);
 
   // useEffect(() => {
-  //   console.log("customHistory", customHistory);
-  // }, [customHistory]);
+  //   console.log(
+  //     "allMessages",
+  //     allMessages,
+  //     "cartMessage",
+  //     cartMessage,
+  //     "userMessage",
+  //     userMessage
+  //   );
+  //   // closeAlert(dispatch);
+  //   // setTimeout(() => {
+  //   //   console.log("after 5 sec");
+  //   //   setAllMessages([]);
+  //   // }, 5000);
+  // }, [allMessages, cartMessage, userMessage]);
 
   // const { isAuth } = useSelector((state) => state.user);
 
@@ -159,7 +175,7 @@ function App() {
             <Route path="orders" element={<AllOrders />} />
           </Route>
         </Routes>
-        {/* <Alertaz messageGroup={allMessages}></Alertaz> */}
+        <Alertaz messageGroup={allMessages}></Alertaz>
       </div>
     </Router>
   );

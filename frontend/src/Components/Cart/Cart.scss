@@ -1,6 +1,15 @@
+@import '../../media-queries.scss';
 .crt-box{
     display: flex;
     padding: 3% 6%;
+    @include xs {
+        flex-direction: column;
+        padding: 3%;
+      }
+      @include sm {
+        flex-direction: column;
+      }
+      
     .crt-left{
         flex: 2;
     }

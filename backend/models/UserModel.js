@@ -39,6 +39,11 @@ const userSchema = new mongoose.Schema({
       quantity: { type: Number, required: true },
     },
   ],
+  favourite: [
+    {
+      id: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+    },
+  ],
   address: [
     {
       addressLine: { type: String, required: true },

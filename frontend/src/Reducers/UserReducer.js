@@ -83,9 +83,21 @@ export const userReducer = createReducer(intialState, {
   },
   updateDBCartSuccess: (state, action) => {
     state.loading = false;
-    state.user = action.payload;
+    // state.message = action.payload;
   },
   updateDBCartFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+
+  updateFavRequest: (state) => {
+    state.loading = true;
+  },
+  updateFavSuccess: (state, action) => {
+    state.loading = false;
+    state.user = action.payload;
+  },
+  updateFavFailure: (state, action) => {
     state.loading = false;
     state.error = action.payload;
   },

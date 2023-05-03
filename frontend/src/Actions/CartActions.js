@@ -1,10 +1,19 @@
 import axios from "axios";
-
-export const addToCartAction = (cart) => (dispatch) => {
-  dispatch({
-    type: "addToCart",
-    payload: cart,
-  });
+import { closeAlert } from "../utils/common";
+export const addToCartAction = (cart, isInit) => (dispatch) => {
+  //pass initial to not display alert box
+  if (isInit === "initial") {
+    dispatch({
+      type: "initialAddToCart",
+      payload: cart,
+    });
+  } else {
+    dispatch({
+      type: "addToCart",
+      payload: cart,
+    });
+    closeAlert(dispatch);
+  }
 };
 
 export const totalValue = (totalVal) => (dispatch) => {
@@ -20,7 +29,7 @@ export const saveCartToDB = (id, obj) => async (dispatch) => {
     const { data } = await axios.post(`/api/v1/update/cart/${id}`, obj);
     dispatch({
       type: "updateDBCartSuccess",
-      payload: data.user,
+      payload: data.message,
     });
   } catch (e) {
     dispatch({ type: "updateDBCartFailure", payload: e.message });

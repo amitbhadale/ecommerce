@@ -1,9 +1,13 @@
+@import '../../media-queries.scss';
 .mainnav{
     display: flex;
     padding: 25px;
     box-shadow: 0 4px 12px 0 rgba(0,0,0,.05);
     background: #fff;
     align-items: center;
+    @include xs {
+        flex-direction: column;
+    }
     .nav-section{
         flex: 1;
         .logo{
@@ -20,14 +24,25 @@
             color: #afd334;
             box-shadow: 0px 0px 2px 0px #000;
             border-radius: 3px;
+            @include xs {
+                margin-bottom: 15px;
+            }
         }
     }
     .navlinks{
         display: flex;
+        justify-content: center;
+          @include xs {
+            flex-wrap: wrap;
+          }
+          @include sm {
+           flex-basis: 65%;
+          }
         a{
             text-decoration: none;
             padding-right: 15px;
             font-weight: bold;
+            white-space: nowrap;
         }
     }
 }

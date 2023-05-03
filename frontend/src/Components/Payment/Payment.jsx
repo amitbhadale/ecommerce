@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCartAction, saveCartToDB } from "../../Actions/CartActions";
 import { addOrder } from "../../Actions/OrderActions";
 import "./Payment.scss";
 const Payment = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, isAuth } = useSelector((state) => state.user);
   const { totalValue, cart } = useSelector((state) => state.cart);
   const { selectedAddress } = useSelector((state) => state.order);
@@ -29,8 +31,9 @@ const Payment = () => {
     };
 
     await dispatch(addOrder(orderObj));
+    navigate("/orders");
     //empty all cart values
-    await dispatch(addToCartAction([]));
+    await dispatch(addToCartAction([], "initial"));
     await dispatch(saveCartToDB(user._id, []));
     localStorage.setItem("cart", JSON.stringify([]));
   };

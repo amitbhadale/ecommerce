@@ -149,6 +149,24 @@ exports.updateCart = async (req, res) => {
     user.cart = req.body;
     await user.save();
 
+    res
+      .status(200)
+      .json({ success: true, message: "Cart updated Successfully" });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      messsage: e.message,
+    });
+  }
+};
+
+exports.updateFav = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.favourite = req.body;
+
+    await user.save();
+
     res.status(200).json({ success: true, user });
   } catch (e) {
     res.status(500).json({

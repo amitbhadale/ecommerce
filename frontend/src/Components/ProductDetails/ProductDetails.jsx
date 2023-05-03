@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../Actions/ProductActions";
 import { addToCartAction, saveCartToDB } from "../../Actions/CartActions";
+import { updateFav } from "../../Actions/UserActions";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { isAuth, user } = useSelector((state) => state.user);
   let { id } = useParams();
   const [quantity, setQuantity] = useState(1);
+  const [isFavourite, setIsFavourite] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -24,6 +26,14 @@ const ProductDetails = () => {
       product = null;
     };
   }, [id]);
+
+  useEffect(() => {
+    //check if product is already a favourite
+    if (isAuth && user && id) {
+      const indx = user.favourite.map((item) => item._id).indexOf(id);
+      setIsFavourite(!(indx === -1));
+    }
+  }, [isAuth, user, id]);
 
   let { product } = useSelector((state) => state.product);
 
@@ -56,6 +66,26 @@ const ProductDetails = () => {
       await dispatch(saveCartToDB(user._id, cartItems));
     }
   };
+  const moveToFav = async () => {
+    const fav = [...user.favourite];
+    //check if exists
+    const indx = fav.map((item) => item.id).indexOf(id);
+
+    if (indx === -1) {
+      //item doesnt exists, add new
+      fav.push({ _id: id });
+    } else {
+      //item exists, replace with its index
+      fav[indx] = { _id: id };
+    }
+    await dispatch(updateFav(user._id, fav));
+  };
+  const removeFav = async () => {
+    const fav = [...user.favourite];
+    const indx = fav.map((item) => item.id).indexOf(id);
+    fav.splice(indx, 1);
+    await dispatch(updateFav(user._id, fav));
+  };
   return (
     <>
       <div>
@@ -64,11 +94,11 @@ const ProductDetails = () => {
             <div className="prod-details-container">
               <div className="pd-left">
                 {product.images && product.images.length > 0 ? (
-                  product.images.map((image) => {
+                  product.images.map((image, i) => {
                     const { url, _id } = image;
                     return (
-                      <div className="img-box">
-                        <img src={url} key={_id} alt="Product Image" />{" "}
+                      <div className="img-box" key={i}>
+                        <img src={url} alt="Product Image" />{" "}
                       </div>
                     );
                   })
@@ -109,7 +139,13 @@ const ProductDetails = () => {
                   <button className="pd-cta" onClick={() => addtoCart()}>
                     Add to Cart
                   </button>
-                  <button className="pd-cta">Move to Favourate</button>
+                  <button
+                    className={isFavourite ? "pd-cta fav" : "pd-cta"}
+                    disabled={!isAuth}
+                    onClick={() => (isFavourite ? removeFav() : moveToFav())}
+                  >
+                    Favourite
+                  </button>
                 </div>
                 <div className="pd-desc">{product.description}</div>
                 <div className="avlbl">Available: {product.quantity}</div>

@@ -1,6 +1,21 @@
+@import '../../media-queries.scss';
 .co-box{
     display: flex;
     padding: 3% 6%;
+    @include xs {
+        // background: red;
+        flex-direction: column;
+      }
+      @include sm {
+        // background: #ccc;
+        padding: 2%;
+      }
+      @include md {
+        // background: green;
+      }
+      @include lg {
+        // background: yellow;
+      }
     .co-left{
         flex: 2 1;
         .address-box{

@@ -1,29 +1,53 @@
+@import '../../media-queries.scss';
+
 .prod-container{
+            
     .sort-sec{
         display: flex;
         justify-content: space-around;
         align-items: center;
         padding: 20px 0px;
+        @include xs {
+            display: none;
+        }
+        @include sm {
+            align-items: flex-end;
+        }
         .search{
             display: flex;
             flex-basis: 50%;
             align-items: baseline;
+            
             input{
                 margin: 0px;
                 margin-right: 10px;
             }
         }
         .sort-by{
+            @include sm {
+                display: flex;
+                flex-direction: column;
+            }
             label{
                 margin-right: 10px;
+                @include sm {
+                    margin-bottom: 6px;
+                }
             }
             select{
                 padding: 10px;
             }
         }
         .ppp-dropdown{
+            @include sm {
+                display: flex;
+                flex-direction: column;
+            }
             label{
                 margin-right: 10px;
+                @include sm {
+                    margin-bottom: 6px;
+                }
             }
             select{
                 padding: 10px;

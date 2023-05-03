@@ -13,7 +13,7 @@ const CartItem = ({ item }) => {
     }
   }, [cart]);
   useEffect(() => {
-    console.log("item", item);
+    // console.log("item", item);
   }, [item]);
 
   const updateQty = async (id, act) => {

@@ -1,3 +1,5 @@
+@import '../../media-queries.scss';
+
 .card-container{
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
     border: 1px solid;
@@ -6,6 +8,13 @@
     flex-basis: 19%;
     display: flex;
     flex-direction: column;
+    @include xs {
+        flex-basis: 45%;
+        flex-grow: 1;
+    }
+    @include sm {
+        flex-basis: 30%;
+    }
     .prod-img{
         // flex: 1;
         img{

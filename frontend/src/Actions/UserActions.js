@@ -31,6 +31,7 @@ export const login = (obj) => async (dispatch) => {
   try {
     dispatch({ type: "loginRequest" });
     const { data } = await axios.post("/api/v1/login", obj);
+    console.log("data after login", data);
     dispatch({
       type: "loginSuccess",
       payload: data.user,
@@ -78,5 +79,18 @@ export const deleteAddress = (id, index) => async (dispatch) => {
     closeAlert(dispatch);
   } catch (e) {
     dispatch({ type: "deleteAddressFailure", payload: e.message });
+  }
+};
+
+export const updateFav = (userId, fav) => async (dispatch) => {
+  try {
+    dispatch({ type: "updateFavRequest" });
+    const { data } = await axios.put(`/api/v1/update/favourite/${userId}`, fav);
+    await dispatch({
+      type: "updateFavSuccess",
+      payload: data.user,
+    });
+  } catch (e) {
+    dispatch({ type: "updateFavFailure", payload: e.message });
   }
 };
