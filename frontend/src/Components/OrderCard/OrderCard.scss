@@ -34,6 +34,11 @@
         }
     }
     .ordr-foot{
-
+        button{
+            background-color: #FF5722;
+            &.dispatch{
+                background-color: green;
+            }
+        }
     }
 }

@@ -61,11 +61,17 @@ const OrderCard = ({ order, isAdmin }) => {
       {isAdmin ? (
         <div className="ordr-foot">
           {status === "Processing" ? (
-            <button onClick={() => processOrder("Dispatched")}>
+            <button
+              className="dispatch"
+              onClick={() => processOrder("Dispatched")}
+            >
               Move to Dispatch
             </button>
           ) : status === "Dispatched" ? (
-            <button onClick={() => processOrder("Delivered")}>
+            <button
+              className="deliver"
+              onClick={() => processOrder("Delivered")}
+            >
               Mark as Delivered
             </button>
           ) : (
