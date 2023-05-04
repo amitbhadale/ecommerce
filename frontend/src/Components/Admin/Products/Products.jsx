@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../Actions/CategoryActions";
 import {
@@ -13,6 +13,7 @@ import Loader from "../Loader/Loader";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     async function loadInit() {
@@ -60,9 +61,9 @@ const Products = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("images", images);
-  }, [images]);
+  // useEffect(() => {
+  //   console.log("images", images);
+  // }, [images]);
 
   const submitFormHandler = async (e) => {
     e.preventDefault();
@@ -79,12 +80,14 @@ const Products = () => {
     } else {
       await dispatch(addProduct(obj));
     }
+    setModalOpen(false);
     setName("");
     setDesc("");
     setPrice("");
     setQuantity("");
     setCategory("");
-    setModalOpen(false);
+    setImages([]);
+    inputRef.current.value = null;
     await dispatch(getProducts());
   };
 
@@ -97,6 +100,8 @@ const Products = () => {
       setQuantity("");
       setCategory("");
       setEditId("");
+      setImages([]);
+      inputRef.current.value = null;
     }
   };
 
@@ -243,6 +248,7 @@ const Products = () => {
               <div className="form-row">
                 <input
                   type="file"
+                  ref={inputRef}
                   multiple
                   accept="image/*"
                   onChange={(e) => updatePreview(e)}
@@ -262,6 +268,7 @@ const Products = () => {
                   Submit
                 </button>
               </div>
+              {loading ? <Loader /> : null}
             </form>
           </div>
         </div>
