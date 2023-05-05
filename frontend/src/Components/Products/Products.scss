@@ -60,6 +60,21 @@
             flex-wrap: wrap;
             justify-content: space-around;
         }
+        .pagination{
+            padding: 3%;
+            display: flex;
+            justify-content: space-between;
+            a{
+                text-decoration: none;
+                padding: 12px 24px;
+                color: #fff;
+                border-radius: 4px;
+                background: #ff5722;
+                &.dummy{
+                    visibility: hidden;
+                }
+            }
+        }
     }
     
 }

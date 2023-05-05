@@ -20,8 +20,6 @@ import Checkout from "./Components/Checkout/Checkout";
 import Users from "./Components/Admin/Users/Users";
 import Login from "./Components/Login/Login";
 import { loadUser } from "./Actions/UserActions";
-// import { createBrowserHistory } from "history";
-import { closeAlert } from "./utils/common";
 import Overview from "./Components/Profile/Overview/Overview";
 import { Dashboard as ProfileDashboard } from "./Components/Profile/Dashboard/Dashboard";
 import Address from "./Components/Profile/Address/Address";
@@ -35,7 +33,6 @@ function App() {
     user,
     message: userMessage,
   } = useSelector((state) => state.user);
-  // const customHistory = createBrowserHistory();
   const { cart: stateCart, message: cartMessage } = useSelector(
     (state) => state.cart
   );
@@ -62,7 +59,6 @@ function App() {
         }
 
         dispatch(addToCartAction(newArray, "initial"));
-        // console.log("called from here");
         dispatch(saveCartToDB(user._id, newArray));
       } else {
         dispatch(addToCartAction(user.cart, "initial"));
@@ -80,12 +76,10 @@ function App() {
 
   useEffect(() => {
     if (userMessage) {
-      console.log("first");
       const obj = { type: "success", message: userMessage.message };
       setAllMessages(allMessages.concat(obj));
     }
     if (cartMessage) {
-      console.log("second");
       const obj = { type: "success", message: cartMessage };
       setAllMessages(allMessages.concat(obj));
     } else {
@@ -121,36 +115,16 @@ function App() {
   useEffect(() => {
     //load logedin user details
     dispatch(loadUser());
-    // console.log("history", customHistory);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(
-  //     "allMessages",
-  //     allMessages,
-  //     "cartMessage",
-  //     cartMessage,
-  //     "userMessage",
-  //     userMessage
-  //   );
-  //   // closeAlert(dispatch);
-  //   // setTimeout(() => {
-  //   //   console.log("after 5 sec");
-  //   //   setAllMessages([]);
-  //   // }, 5000);
-  // }, [allMessages, cartMessage, userMessage]);
-
-  // const { isAuth } = useSelector((state) => state.user);
-
   return (
-    // <Router history={customHistory}>
     <Router>
       <div className="App">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<ProductsList />}></Route>
-          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/products/:page" element={<ProductsList />}></Route>
+          <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/orders" element={isAuth ? <Orders /> : <Login />} />
           <Route path="/login" element={isAuth ? <Home /> : <Login />} />
@@ -169,7 +143,7 @@ function App() {
           </Route>
           <Route path="/admin" element={<Dashboard />}>
             <Route path="admin" element={<Dashboard />} />
-            <Route path="products" element={<Products />} />
+            <Route path="products/:page" element={<Products />} />
             <Route path="category" element={<Category />} />
             <Route path="users" element={<Users />} />
             <Route path="orders" element={<AllOrders />} />

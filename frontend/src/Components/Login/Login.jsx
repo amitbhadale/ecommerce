@@ -34,7 +34,6 @@ const Login = () => {
     e.preventDefault();
     await dispatch(login({ email, password: pass }));
     navigate(-1);
-    // console.log("history", history);
   };
 
   const toggleTab = (val) => {

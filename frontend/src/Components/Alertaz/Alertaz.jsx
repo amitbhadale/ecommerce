@@ -3,14 +3,7 @@ import "./Alertaz.scss";
 const Alertaz = ({ messageGroup }) => {
   const [alerts, setAlerts] = useState(messageGroup ? messageGroup : []);
 
-  // [
-  //   { type: "success", message: "Addded to Cart" },
-  //   { type: "err", message: "Action Failed, Value is required!" },
-  //   { type: "warn", message: "Might be some warning!" },
-  // ]
-
   useEffect(() => {
-    // console.log("alerts in alertaz", alerts, "messageGroup", messageGroup);
     if (messageGroup) {
       setAlerts(messageGroup);
     }

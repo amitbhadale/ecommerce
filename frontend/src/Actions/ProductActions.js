@@ -13,18 +13,22 @@ export const addProduct = (obj) => async (dispatch) => {
   }
 };
 
-export const getProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: "getProductsRequest" });
-    const { data } = await axios.get("/api/v1/products");
-    dispatch({
-      type: "getProductsSuccess",
-      payload: data.products,
-    });
-  } catch (e) {
-    dispatch({ type: "addProductFailure", payload: e.message });
-  }
-};
+export const getProducts =
+  (ppp, page = 1) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: "getProductsRequest" });
+      const { data } = await axios.get(
+        `/api/v1/products?ppp=${ppp}&&page=${page}`
+      );
+      dispatch({
+        type: "getProductsSuccess",
+        payload: data,
+      });
+    } catch (e) {
+      dispatch({ type: "addProductFailure", payload: e.message });
+    }
+  };
 
 export const getProductDetails = (id) => async (dispatch) => {
   try {

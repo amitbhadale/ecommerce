@@ -2,16 +2,9 @@ import axios from "axios";
 
 export const addOrder = (obj) => async (dispatch) => {
   try {
-    // dispatch({ type: "addOrderRequest" });
     const data = await axios.post("/api/v1/order/add", obj);
-    console.log("Order data", data);
-    // dispatch({
-    //   type: "addOrderSuccess",
-    //   payload: data,
-    // });
   } catch (e) {
     console.log("error", e.message);
-    // dispatch({ type: "addOrderFailure", payload: e.message });
   }
 };
 

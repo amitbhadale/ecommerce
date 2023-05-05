@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, Link } from "react-router-dom";
 import { getCategories } from "../../../Actions/CategoryActions";
 import {
   addProduct,
@@ -14,16 +15,9 @@ import Loader from "../Loader/Loader";
 const Products = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
+  let { page } = useParams();
 
-  useEffect(() => {
-    async function loadInit() {
-      await dispatch(getProducts());
-      await dispatch(getCategories());
-    }
-    loadInit();
-  }, []);
-
-  const { categories, loading, products, product } = useSelector(
+  const { categories, loading, products, product, productCount } = useSelector(
     (state) => state.product
   );
 
@@ -35,6 +29,23 @@ const Products = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editId, setEditId] = useState("");
   const [images, setImages] = useState([]);
+  const [ppp, setPpp] = useState(5);
+  const [showNext, setShowNext] = useState(true);
+  const [showPrev, setShowPrev] = useState(true);
+
+  useEffect(() => {
+    async function loadInit() {
+      await dispatch(getProducts(ppp, parseInt(page)));
+      await dispatch(getCategories());
+    }
+    loadInit();
+  }, [ppp, page]);
+  useEffect(() => {
+    let numberOfPages = productCount / ppp + 1;
+    numberOfPages = parseInt(numberOfPages);
+    setShowNext(page < numberOfPages ? true : false);
+    setShowPrev(page * 1 === 1 ? false : true);
+  }, [productCount, ppp, page]);
 
   useEffect(() => {
     if (product) {
@@ -60,10 +71,6 @@ const Products = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-
-  // useEffect(() => {
-  //   console.log("images", images);
-  // }, [images]);
 
   const submitFormHandler = async (e) => {
     e.preventDefault();
@@ -125,7 +132,23 @@ const Products = () => {
           <>
             <div className="table-title">
               <h4>Products</h4>
-              <button onClick={() => modalToggle(true)}>Add Product</button>
+              <div className="right">
+                <div className="ppp">
+                  <label>Products per page</label>
+                  <select
+                    name="ppp"
+                    value={ppp}
+                    onChange={(e) => setPpp(parseInt(e.target.value))}
+                  >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                  </select>{" "}
+                  <span>/ {productCount}</span>
+                </div>
+                <button onClick={() => modalToggle(true)}>Add Product</button>
+              </div>
             </div>
             <table className="tabl">
               <thead>
@@ -173,6 +196,17 @@ const Products = () => {
                 )}
               </tbody>
             </table>
+            <div className="pagination">
+              {showPrev ? (
+                <Link to={`../products/${parseInt(page) - 1}`}>PREV</Link>
+              ) : null}
+              {showNext ? (
+                <>
+                  <a className="dummy"></a>
+                  <Link to={`../products/${parseInt(page) + 1}`}>NEXT</Link>
+                </>
+              ) : null}
+            </div>
           </>
         )}
       </div>

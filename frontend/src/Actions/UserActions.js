@@ -31,7 +31,6 @@ export const login = (obj) => async (dispatch) => {
   try {
     dispatch({ type: "loginRequest" });
     const { data } = await axios.post("/api/v1/login", obj);
-    console.log("data after login", data);
     dispatch({
       type: "loginSuccess",
       payload: data.user,

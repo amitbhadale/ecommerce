@@ -12,9 +12,6 @@ const CartItem = ({ item }) => {
       setCartItems(cart);
     }
   }, [cart]);
-  useEffect(() => {
-    // console.log("item", item);
-  }, [item]);
 
   const updateQty = async (id, act) => {
     const copy = [...cartItems];

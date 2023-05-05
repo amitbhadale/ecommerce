@@ -15,10 +15,6 @@ export const Orders = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("order", orders);
-  }, [orders]);
-
   return (
     <div className="container-main">
       <div className="list-section">

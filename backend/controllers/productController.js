@@ -37,10 +37,19 @@ exports.addProduct = async (req, res) => {
 
 exports.getProducts = async (req, res) => {
   try {
-    const products = await Product.find().populate("category");
+    const ppp = Number(req.query.ppp) || 5;
+    const page = Number(req.query.page) || 1;
+    const skip = ppp * (page - 1);
+
+    const count = await Product.countDocuments();
+    const products = await Product.find()
+      .populate("category")
+      .limit(ppp)
+      .skip(skip);
     res.status(200).json({
       success: true,
       products: products,
+      count,
     });
   } catch (e) {
     res.status(500).json({

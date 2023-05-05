@@ -73,7 +73,7 @@ const Cart = () => {
                 <Link
                   to={
                     cartItems.length === 0
-                      ? "/products"
+                      ? "/products/1"
                       : isAuth
                       ? "/checkout/address"
                       : "/login"
